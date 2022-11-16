@@ -159,3 +159,28 @@ def get_moderator_users_list(course_id):
         for user in role.users.all()
     ]
     return moderator_user_ids
+
+
+def filter_topic_from_discussion_id(discussion_id, topics_list):
+    """
+    Returns topic based on discussion id
+    """
+    for topic in topics_list:
+        if topic.get("id") == discussion_id:
+            return topic
+    return {}
+
+
+def create_discussion_children_from_ids(children_ids, blocks, topics):
+    """
+    Takes ids of discussion and return discussion dictionary
+    """
+    discussions = []
+    for child_id in children_ids:
+        topic = blocks.get(child_id)
+        if topic.get('type') == 'vertical':
+            discussions_id = topic.get('discussions_id')
+            topic = filter_topic_from_discussion_id(discussions_id, topics)
+        if topic:
+            discussions.append(topic)
+    return discussions
