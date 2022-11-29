@@ -1,0 +1,32 @@
+{% raw %}
+<%! from django.utils.translation import ugettext as _ %>
+
+<%inherit file="../main.html" />
+
+<%block name="pagetitle">${_("Aktuelles")}</%block>
+
+<link href="https://dz-bank.s3.eu-central-1.amazonaws.com/video-js.css" rel="stylesheet" />
+
+<!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+<!-- <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script> -->
+
+<main id="main" aria-label="Content" tabindex="-1">
+    <section class="container about">
+        <h1>
+            <%block name="pageheader">${page_header or _("Aktuelles")}</%block>
+        </h1>
+        <div style="text-align:center;">
+			<h2 style="font-weight: bold;" class="hd-6 section-title">BEG Videos</h2>
+			<br>
+
+		  
+		  
+		  <br>
+		
+          Dürfen wir Sie weiter unterstützen, in Form von Schulungen Ihrer Vertriebsmannschaft <br>oder haben Sie weitere Fragen? Dann kontaktieren Sie uns bitte unter:<br><br>
+          <a class="btn btn-primary enter-course" href="mailto:foerdermittel.veranstaltungen@dzbank.de" style="text-transform: lowercase;">foerdermittel.veranstaltungen@dzbank.de</a>
+        </div>
+        <script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
+    </section>
+</main>
+{% endraw %}

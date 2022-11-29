@@ -1,0 +1,417 @@
+{% raw %}
+<%!
+from django.urls import reverse
+from django.utils.translation import gettext as _
+
+from openedx.core.djangoapps.user_api.accounts.image_helpers import get_profile_image_urls_for_user
+from openedx.features.enterprise_support.utils import get_enterprise_learner_generic_name
+import pytz
+import six
+from datetime import datetime, timedelta
+from django.template import RequestContext
+from common.djangoapps.entitlements.models import CourseEntitlement
+from common.djangoapps.third_party_auth import pipeline
+from common.djangoapps.util.date_utils import strftime_localized
+from opaque_keys.edx.keys import CourseKey
+from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+from openedx.core.djangolib.js_utils import dump_js_escaped_json, js_escaped_string
+from openedx.core.djangolib.markup import HTML, Text
+from common.djangoapps.student.models import CourseEnrollment
+%>
+
+
+    <%inherit file="../main.html" />
+
+    <%block name="pagetitle">${_("Overview")}</%block>
+    <main id="main" aria-label="Content" tabindex="-1">
+        <style>
+            .blocker-wrapper {
+                flex: 1 1;
+                position: relative;
+                margin: 0 0 20px;
+                color: #fff
+            }
+
+            .blocker-text-wrapper {
+                position: absolute;
+                top: 20%;
+                left: 10%;
+                -webkit-transform: translateX(-10%) translateY(-20%);
+                transform: translateX(-10%) translateY(-20%);
+                text-align: left;
+                color: white;
+                width: 66%;
+                max-width: 800px;
+            }
+
+            .blocker-text {
+                color: white !important;
+                text-align: left;
+                line-height: 1.5em;
+            }
+
+            @media screen and (max-width: 50em) {
+                .blocker-text {
+                    font-size: 1em;
+                    line-height: 1em;
+                }
+
+                .blocker-text-wrapper {
+                    width: 100%;
+                }
+            }
+        </style>
+        <!-- <div class="blocker-wrapper">
+            <div class="blocker-text-wrapper">
+                <h1 class="blocker-text">
+                    <b class="blocker-text">BEG-Förderung für Neubauten – Restart ab dem 20.04.2022</b>
+                </h1>
+                <p class="blocker-text">
+                    Ab dem 20.04.2022 können neue Anträge für den Neubau von energieeffizienten Gebäuden gestellt werden – allerdings mit reduzierten Tilgungszuschüssen.<br><br>
+                    Die Neubau-Förderung wird ausschließlich in den Kreditvarianten 261/263 angeboten. Für diese Anträge stehen begrenzte Haushaltsmittel i.H.v. 1 Mrd. EUR zur Verfügung. Finanzierungszusagen für neue Anträge können erteilt werden, soweit und solange dieser Haushaltsmittelansatz nicht ausgeschöpft ist (Windhundprinzip). Wir raten zu einer zeitnahen Antragstellung.
+                </p>
+            </div>
+            <img alt="Hinweis: BEG-Förderung für Neubauten – Restart ab dem 20.04.2022"
+                src="https://dz-bank.s3.eu-central-1.amazonaws.com/IF_Slider_Hinweis.png" width="100%">
+        </div> -->
+        <section class="find-courses">
+            <section class="courses-container">
+                <div id="discovery-form" role="search" aria-label="course" class="wrapper-search-context">
+                    <div id="discovery-message" class="search-status-label">Investitionsförderung: 6 Kurse</div>
+                    <form class="wrapper-search-input">
+                        <label for="discovery-input" class="sr">Suche nach einem Kurs</label>
+                        <input id="discovery-input" class="discovery-input" placeholder="Suche nach einem Kurs"
+                            type="text">
+                        <button type="submit" class="button postfix discovery-submit" title="Suche">
+                            <span class="icon fa fa-search" aria-hidden="true"></span>
+                            <div aria-live="polite" aria-relevant="all">
+                                <div id="loading-indicator" class="loading-spinner hidden">
+                                    <span class="icon fa fa-spinner fa-spin" aria-hidden="true"></span>
+                                    <span class="sr">Ladevorgang</span>
+                                </div>
+                            </div>
+                        </button>
+                    </form>
+                </div>
+
+                <div id="filter-bar" class="filters hide-phone is-collapsed is-animated">
+                    <div class="filters-inner">
+                        <ul class="active-filters facet-list"></ul>
+                        <button id="clear-all-filters"
+                            class="clear-filters flt-right discovery-button">Zurücksetzen</button>
+                    </div>
+
+                </div>
+
+                <div class="courses" role="region" aria-label="Kursliste">
+                    <ul class="courses-listing courses-list">
+                        <li class="courses-listing-item">
+                            <article class="course" role="region" aria-label="Marktfolge">
+                                <a href="/courses/course-v1:dz-bank+dz5+marktfolge/about">
+                                    <header class="course-image">
+                                        <div class="cover-image">
+                                            <img src="/asset-v1:dz-bank+dz5+marktfolge+type@asset+block@marktfolge.jpg"
+                                                alt="Marktfolge dz5">
+                                        </div>
+                                        <div class="video-shortcut-wrapper">
+                                            <a class="video-shortcut-item" href="/courses/course-v1:dz-bank+dz5+marktfolge/jump_to_id/7e89226d0e744e68bc47a275722016c3">
+                                                Einleitung
+                                            </a>
+                                            <a class="video-shortcut-item" href="/courses/course-v1:dz-bank+dz5+marktfolge/jump_to_id/b5f0ddcfb4d54959863440fabd9b0f81">
+                                                Marktfolge Allgemein
+                                            </a>
+                                            <a class="video-shortcut-item" href="/courses/course-v1:dz-bank+dz5+marktfolge/jump_to_id/de97feaf5e6e4d95961ba4d1c77a93ed">
+                                                KMU-Definition
+                                            </a>
+                                            <a class="video-shortcut-item" href="/courses/course-v1:dz-bank+dz5+marktfolge/jump_to_id/888d09694b5646b882c6b1ff43516ef0">
+                                                Beihilferecht und Corona-Beihilfen
+                                            </a>
+                                            <a class="video-shortcut-item" href="/courses/course-v1:dz-bank+dz5+marktfolge/jump_to_id/a357878cf8534dafb96ac5c8a1bc13bf">
+                                                Risikogerechtes Zinssystem
+                                            </a>
+                                            <a class="video-shortcut-item" href="/courses/course-v1:dz-bank+dz5+marktfolge/jump_to_id/bcdcfe07e0df4f97a4292c225bf9fa73">
+                                                Marktfolge Neugeschäft
+                                            </a>
+                                            <a class="video-shortcut-item" href="/courses/course-v1:dz-bank+dz5+marktfolge/jump_to_id/e600290df612412ebd2847165493122b">
+                                                Marktfolge Bestandsgeschäft
+                                            </a>
+                                            <a class="video-shortcut-item" href="/courses/course-v1:dz-bank+dz5+marktfolge/jump_to_id/f280e0afee7443728039aa7bfe327028">
+                                                Mittelverwenungskontrolle
+                                            </a>
+                                            <a class="video-shortcut-item" href="/courses/course-v1:dz-bank+dz5+marktfolge/jump_to_id/c3cc20df83c2426e99b172797b5e9b0f">
+                                                Hausbankprüfung
+                                            </a>
+                                            <a class="video-shortcut-item" href="/courses/course-v1:dz-bank+dz5+marktfolge/jump_to_id/3f8066064b4a4eb0b8467764f6596828">
+                                                Technische Unterstützung
+                                            </a>
+                                        </div>
+                                    </header>
+                                    <section class="course-info" aria-hidden="true">
+                                        <h2 class="course-name">
+                                            <span class="course-title">Marktfolge</span>
+                                        </h2>
+                                    </section>
+                                </a>
+                                <div class="hoverDetailsChildWrapper">
+                                    <ul>
+                                        <li>Antragsfristen und Vorhabensbeginn bei Förderkrediten</li>
+                                        <li>KMU Definition</li>
+                                        <li>Beihilferecht (Definition und Funktionsweise verschiedener Beihilfekomponenten inkl. Corona Beihilfen)</li>
+                                        <li>Risikogerechtes Zinssystem</li>
+                                        <li>Bestätigung zum Antrag und Bestätigung nach Durchführung</li>
+                                        <li>Aufstockung und Reduzierung von Förderkrediten</li>
+                                        <li>Wechsel des Effizienzhaus-Niveaus</li>
+                                        <li>Mittelverwendungskontrolle</li>
+                                        <li>Außerplanmäßige Rückzahlung</li>
+                                        <li>Prolongation</li>
+                                        <li>Teil-/Vollverzicht, Kürzung und Kündigung</li>
+                                        <li>Endkreditnehmer-/Bankenwechsel</li>
+                                    </ul>
+                                </div>
+                            </article>
+                        </li>
+                        <li class="courses-listing-item">
+                            <article class="course" role="region" aria-label="Privatkunden">
+                                <a href="/courses/course-v1:dz-bank+dz4+privatkunden/about">
+                                    <header class="course-image">
+                                        <div class="cover-image">
+                                            <img src="/asset-v1:dz-bank+dz4+privatkunden+type@asset+block@privatkunden.jpg"
+                                                alt="Privatkunden dz4">
+                                        </div>
+                                    </header>
+                                    <section class="course-info" aria-hidden="true">
+                                        <h2 class="course-name">
+                                            <span class="course-title">Privatkunden</span>
+                                        </h2>
+                                    </section>
+                                </a>
+                                <div class="hoverDetailsChildWrapper">
+                                    <div>Antragsfristen und Vorhabensbeginn bei Förderkrediten</div>
+                                    <div>Vorstellung verschiedener KfW Programme</div>
+                                    <div>Mittelverwendungskontrolle</div>
+                                    <div>Fördermöglichkeiten Erneuerbarer Energien</div>
+                                </div>
+                            </article>
+                        </li>
+                        <li class="courses-listing-item">
+                            <article class="course" role="region" aria-label="Firmenkunden">
+                                <a href="/courses/course-v1:dz-bank+dz3+firmenkunden/about">
+                                    <header class="course-image">
+                                        <div class="cover-image">
+                                            <img src="/asset-v1:dz-bank+dz3+firmenkunden+type@asset+block@firmenkunden.jpg"
+                                                alt="Firmenkunden dz3">
+                                        </div>
+                                    </header>
+                                    <section class="course-info" aria-hidden="true">
+                                        <h2 class="course-name">
+                                            <span class="course-title">Firmenkunden</span>
+                                        </h2>
+                                    </section>
+                                </a>
+                                <div class="hoverDetailsChildWrapper">
+                                    <div>Antragsfristen und Vorhabensbeginn bei Förderkrediten</div>
+                                    <div>KMU Definition</div>
+                                    <div>Beihilferecht (Definition und Funktionsweise verschiedener Beihilfekomponenten inkl. Corona Beihilfen)</div>
+                                    <div>Risikogerechtes Zinssystem</div>
+                                    <div>Öffentliche Risikoübernahme</div>
+                                </div>
+                            </article>
+                        </li>
+                        <li class="courses-listing-item">
+                            <article class="course" role="region" aria-label="Notleidenden Kredite">
+                                <a href="/courses/course-v1:dz-bank+dz8+Notleidenden_Kredite/about">
+                                    <header class="course-image">
+                                        <div class="cover-image">
+                                            <img src="https://dz-bank.s3.eu-central-1.amazonaws.com/164356563232Bild_Notleidenden_chancen.finder+(1).jpg"
+                                                alt="Notleidenden Kredite">
+                                        </div>
+                                    </header>
+                                    <section class="course-info" aria-hidden="true">
+                                        <h2 class="course-name">
+                                            <span class="course-title">Notleidende Kredite</span>
+                                        </h2>
+                                    </section>
+                                </a>
+                                <div class="hoverDetailsChildWrapper">
+                                    <div>Programmgrundzüge Produkt ERP-Gründerkredit Startgeld</div>
+                                    <div>Detaillierte Abwicklungsschritte</div>
+                                    <div>Eigenverwaltung</div>
+                                    <div>Rückzahlungsvereinbarung</div>
+                                    <div>Abschlussbericht</div>
+                                </div>
+                            </article>
+                        </li>
+                        <li class="courses-listing-item">
+                            <article class="course" role="region" aria-label="GENO-STAR">
+                                <a href="/courses/course-v1:dz-bank+dz6+GENO-STAR/about">
+                                    <header class="course-image">
+                                        <div class="cover-image">
+                                            <img src="https://dz-bank.s3.eu-central-1.amazonaws.com/1628515203232Bild_GENO-STAR_chancen.finder.jpg"
+                                                alt="GENO-STAR">
+                                        </div>
+                                    </header>
+                                    <section class="course-info" aria-hidden="true">
+                                        <h2 class="course-name">
+                                            <span class="course-title">GENO-STAR</span>
+                                        </h2>
+                                    </section>
+                                </a>
+                                <div class="hoverDetailsChildWrapper">
+                                    <div>Zinsbestätigung für KfW-Kredite aus der agree21-Modellrechnung</div>
+                                    <div>Anlage eines Fördermittelantrages mit zwei Förderprogrammen</div>
+                                    <div>Zinsbestätigung für KfW-Kredite aus der Genossenschaftlichen Beratung</div>
+                                </div>
+                            </article>
+                        </li>
+                        <li class="courses-listing-item">
+                            <article class="course" role="region" aria-label="ZuschussGuide">
+                                <a href="/courses/course-v1:dz-bank+dz8+zuschussguide/about">
+                                    <header class="course-image">
+                                        <div class="cover-image">
+                                            <img src="https://dz-bank.s3.eu-central-1.amazonaws.com/ZuschussGuide_App_Vorschau.png"
+                                                alt="ZuschussGuide">
+                                        </div>
+                                    </header>
+                                    <section class="course-info" aria-hidden="true">
+                                        <h2 class="course-name">
+                                            <span class="course-title">ZuschussGuide</span>
+                                        </h2>
+                                    </section>
+                                </a>
+                                <div class="hoverDetailsChildWrapper">
+                                    <div>ZuschussGuide in der Praxis</div>
+                                    <div>ZuschussGuide im Bankeinsatz</div>
+                                </div>
+                            </article>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <aside aria-label="Suche filtern" class="search-facets phone-menu">
+                    <h2 class="header-search-facets">Suche filtern</h2>
+                    <section class="search-facets-lists">
+                        <h3 class="header-facet">
+                            modes
+                        </h3>
+                        <ul data-facet="modes" class="facet-list collapse">
+
+                            <li>
+                                <button data-facet="modes" data-value="honor" data-text="honor"
+                                    class="facet-option discovery-button ">
+                                    honor
+                                    <span class="count">
+                                        <span class="count-number">5</span>
+                                    </span>
+                                </button>
+                            </li>
+
+
+                        </ul>
+
+
+
+                        <h3 class="header-facet">
+                            org
+                        </h3>
+                        <ul data-facet="org" class="facet-list collapse">
+
+                            <li>
+                                <button data-facet="org" data-value="dz-bank" data-text="dz-bank"
+                                    class="facet-option discovery-button ">
+                                    dz-bank
+                                    <span class="count">
+                                        <span class="count-number">5</span>
+                                    </span>
+                                </button>
+                            </li>
+
+
+                        </ul>
+
+
+
+                        <h3 class="header-facet">
+                            language
+                        </h3>
+                        <ul data-facet="language" class="facet-list collapse">
+
+                            <li>
+                                <button data-facet="language" data-value="de" data-text="de"
+                                    class="facet-option discovery-button ">
+                                    de
+                                    <span class="count">
+                                        <span class="count-number">5</span>
+                                    </span>
+                                </button>
+                            </li>
+
+
+                        </ul>
+
+
+                    </section>
+                </aside>
+                <!-- <script>
+                    function expandTile(tile, reverse=false) {
+                        if (reverse) {
+                            var toRemove = tile.parentNode.querySelector('#hoverDetails');
+                            if (toRemove) {
+                                toRemove.parentNode.removeChild(toRemove);
+                            }
+                        } else {
+                            if (tile.parentNode.querySelector('#hoverDetails')) {
+                                return;
+                            } else {
+                                var curHeight = tile.offsetHeight;
+                                var newElement = document.createElement('div');
+                                newElement.id = "hoverDetails";
+                                newElement.innerHTML = details[tile.querySelector('.course-title').textContent]["newElement"];
+                                tile.parentNode.append(newElement);
+                                document.querySelector('#hoverDetails').onmouseover = function() {
+                                    expandTile(this, true);
+                                }
+                            }
+                        }
+                    }
+                    var details = {
+                        "Marktfolge": {
+                            "newElement": "<div class=\"hoverDetailsChildWrapper\"><div>Antragsfristen und Vorhabensbeginn bei Förderkrediten</div><div>KMU Definition</div><div>Beihilferecht (Definition und Funktionsweise verschiedener Beihilfekomponenten inkl. Corona Beihilfen)</div><div>Risikogerechtes Zinssystem</div><div>Bestätigung zum Antrag und Bestätigung nach Durchführung</div><div>Aufstockung und Reduzierung von Förderkrediten</div><div>Wechsel des Effizienzhaus-Niveaus</div><div>Mittelverwendungskontrolle</div><div>Außerplanmäßige Rückzahlung</div><div>Prolongation</div><div>Teil-/Vollverzicht, Kürzung und Kündigung</div><div>Endkreditnehmer-/Bankenwechsel</div></div>",
+                            "tileStyle": ""
+                        },
+                        "Privatkunden": {
+                            "newElement": "<div class=\"hoverDetailsChildWrapper\"><div>Antragsfristen und Vorhabensbeginn bei Förderkrediten</div><div>Vorstellung verschiedener KfW Programme</div><div>Mittelverwendungskontrolle</div><div>Fördermöglichkeiten Erneuerbarer Energien</div></div>",
+                            "tileStyle": ""
+                        },
+                        "Firmenkunden": {
+                            "newElement": "<div class=\"hoverDetailsChildWrapper\"><div>Antragsfristen und Vorhabensbeginn bei Förderkrediten</div><div>KMU Definition</div><div>Beihilferecht (Definition und Funktionsweise verschiedener Beihilfekomponenten inkl. Corona Beihilfen)</div><div>Risikogerechtes Zinssystem</div><div>Öffentliche Risikoübernahme</div></div>",
+                            "tileStyle": ""
+                        },
+                        "Notleidende Kredite": {
+                            "newElement": "<div class=\"hoverDetailsChildWrapper\"><div>Programmgrundzüge Produkt ERP-Gründerkredit Startgeld</div><div>Detaillierte Abwicklungsschritte</div><div>Eigenverwaltung</div><div>Rückzahlungsvereinbarung</div><div>Abschlussbericht</div></div>",
+                            "tileStyle": ""
+                        },
+                        "GENO-STAR": {
+                            "newElement": "<div class=\"hoverDetailsChildWrapper\"><div>Zinsbestätigung für KfW-Kredite aus der agree21-Modellrechnung</div><div>Anlage eines Fördermittelantrages mit zwei Förderprogrammen</div><div>Zinsbestätigung für KfW-Kredite aus der Genossenschaftlichen Beratung</div></div>",
+                            "tileStyle": ""
+                        },
+                        "ZuschussGuide": {
+                            "newElement": "<div class=\"hoverDetailsChildWrapper\"><div>ZuschussGuide in der Praxis</div><div>ZuschussGuide im Bankeinsatz</div></div>",
+                            "tileStyle": ""
+                        }
+                    }
+                    var tiles = document.querySelectorAll('.courses-listing-item article > a');
+                    for (var i = tiles.length - 1; i >= 0; i--) {
+                        tiles[i].onmouseenter = function() {
+                            expandTile(this);
+                        }
+                        tiles[i].onmouseleave = function() {
+                            expandTile(this, true);
+                        }
+                    }
+                </script> -->
+            </section>
+        </section>
+    </main>
+    {% endraw %}

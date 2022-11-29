@@ -1,0 +1,261 @@
+
+{% raw %}
+<%! from django.utils.translation import ugettext as _ %>
+
+<%inherit file="../main.html" />
+
+<%block name="pagetitle">${_("Overview")}</%block>
+
+
+
+<main id="main" aria-label="Content" tabindex="-1">
+    <section class="find-courses">
+      <section class="courses-container">
+        <div id="discovery-form" role="search" aria-label="course" class="wrapper-search-context">
+          <div id="discovery-message" class="search-status-label">Investitionsförderung: 5 Kurse</div>
+          <form class="wrapper-search-input">
+            <label for="discovery-input" class="sr">Suche nach einem Kurs</label>
+            <input id="discovery-input" class="discovery-input" placeholder="Suche nach einem Kurs" type="text">
+            <button type="submit" class="button postfix discovery-submit" title="Suche">
+              <span class="icon fa fa-search" aria-hidden="true"></span>
+              <div aria-live="polite" aria-relevant="all">
+                <div id="loading-indicator" class="loading-spinner hidden">
+                  <span class="icon fa fa-spinner fa-spin" aria-hidden="true"></span>
+                  <span class="sr">Ladevorgang</span>
+                </div>
+              </div>
+            </button>
+          </form>
+        </div>
+
+        <div id="filter-bar" class="filters hide-phone is-collapsed is-animated">
+      <div class="filters-inner">
+    <ul class="active-filters facet-list"></ul>
+    <button id="clear-all-filters" class="clear-filters flt-right discovery-button">Zurücksetzen</button>
+</div>
+
+  </div>
+
+        <div class="courses" role="region" aria-label="Kursliste">
+          <ul class="courses-listing courses-list"><li class="courses-listing-item">
+      <article class="course" role="region" aria-label="Marktfolge">
+    <a href="/courses/course-v1:dz-bank+dz5+marktfolge/about">
+        <header class="course-image">
+            <div class="cover-image">
+                <img src="/asset-v1:dz-bank+dz5+marktfolge+type@asset+block@marktfolge.jpg" alt="Marktfolge dz5">
+                <div class="learn-more" aria-hidden="true">MEHR ERFAHREN</div>
+            </div>
+        </header>
+        <section class="course-info" aria-hidden="true">
+            <h2 class="course-name">
+                <span class="course-organization">dz-bank</span>
+                <span class="course-code">dz5</span>
+                <span class="course-title">Marktfolge</span>
+            </h2>
+            <div class="course-date" aria-hidden="true">
+                Startet: Jan 1, 2020
+            </div>
+        </section>
+        <div class="sr">
+            <ul>
+                <li>dz-bank</li>
+                <li>dz5</li>
+                <li>Beginnt<time itemprop="startDate" datetime="Jan 1, 2020">Jan 1, 2020</time></li>
+            </ul>
+        </div>
+    </a>
+</article>
+
+  </li><li class="courses-listing-item">
+      <article class="course" role="region" aria-label="Privatkunden">
+    <a href="/courses/course-v1:dz-bank+dz4+privatkunden/about">
+        <header class="course-image">
+            <div class="cover-image">
+                <img src="/asset-v1:dz-bank+dz4+privatkunden+type@asset+block@privatkunden.jpg" alt="Privatkunden dz4">
+                <div class="learn-more" aria-hidden="true">MEHR ERFAHREN</div>
+            </div>
+        </header>
+        <section class="course-info" aria-hidden="true">
+            <h2 class="course-name">
+                <span class="course-organization">dz-bank</span>
+                <span class="course-code">dz4</span>
+                <span class="course-title">Privatkunden</span>
+            </h2>
+            <div class="course-date" aria-hidden="true">
+                Startet: Jan 1, 2020
+            </div>
+        </section>
+        <div class="sr">
+            <ul>
+                <li>dz-bank</li>
+                <li>dz4</li>
+                <li>Beginnt<time itemprop="startDate" datetime="Jan 1, 2020">Jan 1, 2020</time></li>
+            </ul>
+        </div>
+    </a>
+</article>
+
+  </li><li class="courses-listing-item">
+      <article class="course" role="region" aria-label="Firmenkunden">
+    <a href="/courses/course-v1:dz-bank+dz3+firmenkunden/about">
+        <header class="course-image">
+            <div class="cover-image">
+                <img src="/asset-v1:dz-bank+dz3+firmenkunden+type@asset+block@firmenkunden.jpg" alt="Firmenkunden dz3">
+                <div class="learn-more" aria-hidden="true">MEHR ERFAHREN</div>
+            </div>
+        </header>
+        <section class="course-info" aria-hidden="true">
+            <h2 class="course-name">
+                <span class="course-organization">dz-bank</span>
+                <span class="course-code">dz3</span>
+                <span class="course-title">Firmenkunden</span>
+            </h2>
+            <div class="course-date" aria-hidden="true">
+                Startet: Jan 1, 2020
+            </div>
+        </section>
+        <div class="sr">
+            <ul>
+                <li>dz-bank</li>
+                <li>dz3</li>
+                <li>Beginnt<time itemprop="startDate" datetime="Jan 1, 2020">Jan 1, 2020</time></li>
+            </ul>
+        </div>
+    </a>
+</article>
+ </li>
+  <li class="courses-listing-item">
+      <article class="course" role="region" aria-label="Notleidenden Kredite">
+    <a href="/courses/course-v1:dz-bank+dz8+Notleidenden_Kredite/about">
+        <header class="course-image">
+            <div class="cover-image">
+                <img src="https://dz-bank.s3.eu-central-1.amazonaws.com/164356563232Bild_Notleidenden_chancen.finder+(1).jpg" alt="Notleidenden Kredite">
+                <div class="learn-more" aria-hidden="true">MEHR ERFAHREN</div>
+            </div>
+        </header>
+        <section class="course-info" aria-hidden="true">
+            <h2 class="course-name">
+                <span class="course-organization">dz-bank</span>
+                <span class="course-code">dz6</span>
+                <span class="course-title">Notleidende Kredite</span>
+            </h2>
+            <div class="course-date" aria-hidden="true">
+                Startet: Jan 1, 2020
+            </div>
+        </section>
+        <div class="sr">
+            <ul>
+                <li>dz-bank</li>
+                <li>dz6</li>
+                <li>Beginnt<time itemprop="startDate" datetime="Jan 1, 2020">Jan 1, 2020</time></li>
+            </ul>
+        </div>
+    </a>
+</article>
+
+  </li>
+  
+  </li>
+  <li class="courses-listing-item">
+      <article class="course" role="region" aria-label="GENO-STAR">
+    <a href="/courses/course-v1:dz-bank+dz6+GENO-STAR/about">
+        <header class="course-image">
+            <div class="cover-image">
+                <img src="https://dz-bank.s3.eu-central-1.amazonaws.com/1628515203232Bild_GENO-STAR_chancen.finder.jpg" alt="GENO-STAR">
+                <div class="learn-more" aria-hidden="true">MEHR ERFAHREN</div>
+            </div>
+        </header>
+        <section class="course-info" aria-hidden="true">
+            <h2 class="course-name">
+                <span class="course-organization">dz-bank</span>
+                <span class="course-code">dz6</span>
+                <span class="course-title">GENO-STAR</span>
+            </h2>
+            <div class="course-date" aria-hidden="true">
+                Startet: Jan 1, 2020
+            </div>
+        </section>
+        <div class="sr">
+            <ul>
+                <li>dz-bank</li>
+                <li>dz6</li>
+                <li>Beginnt<time itemprop="startDate" datetime="Jan 1, 2020">Jan 1, 2020</time></li>
+            </ul>
+        </div>
+    </a>
+</article>
+
+  </li>
+  
+  
+  
+  </ul>
+        </div>
+
+
+        <aside aria-label="Suche filtern" class="search-facets phone-menu">
+          <h2 class="header-search-facets">Suche filtern</h2>
+          <section class="search-facets-lists">
+      <h3 class="header-facet">
+    modes
+</h3>
+<ul data-facet="modes" class="facet-list collapse">
+    
+      <li>
+    <button data-facet="modes" data-value="honor" data-text="honor" class="facet-option discovery-button ">
+        honor
+        <span class="count">
+            <span class="count-number">5</span>
+        </span>
+    </button>
+</li>
+
+  
+</ul>
+
+
+  
+      <h3 class="header-facet">
+    org
+</h3>
+<ul data-facet="org" class="facet-list collapse">
+    
+      <li>
+    <button data-facet="org" data-value="dz-bank" data-text="dz-bank" class="facet-option discovery-button ">
+        dz-bank
+        <span class="count">
+            <span class="count-number">5</span>
+        </span>
+    </button>
+</li>
+
+  
+</ul>
+
+
+  
+      <h3 class="header-facet">
+    language
+</h3>
+<ul data-facet="language" class="facet-list collapse">
+    
+      <li>
+    <button data-facet="language" data-value="de" data-text="de" class="facet-option discovery-button ">
+        de
+        <span class="count">
+            <span class="count-number">5</span>
+        </span>
+    </button>
+</li>
+
+  
+</ul>
+
+
+  </section>
+        </aside>
+
+      </section>
+    </section>
+</main>
+{% endraw %}

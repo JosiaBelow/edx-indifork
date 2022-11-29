@@ -1,0 +1,19 @@
+INDIGO_WELCOME_MESSAGE: "Willkommen auf Chancen Finder"
+INDIGO_PRIMARY_COLOR: "#f08200" # DZ BANK Orange
+
+# Footer links are dictionaries with a "title" and "url"
+# To remove all links, write:
+# INDIGO_FOOTER_NAV_LINKS: []
+# INDIGO_FOOTER_LEGAL_LINKS: []
+INDIGO_FOOTER_NAV_LINKS:
+  - title: "Über uns"
+    url: "https://www.dzbank.de/content/dzbank_de/de/home.html"
+  - title: "Kontakt"
+    url: "https://www.dzbank.de/content/dzbank_de/de/home/unser_profil/die_dz_bank/Kontakt.html"
+INDIGO_FOOTER_LEGAL_LINKS:
+    - title: "Impressum"
+      url: "https://www.dzbank.de/content/dzbank_de/de/footermetanavigation/footerlinks/impressum.html"
+    - title: "Datenschutzhinweise"
+      url: "https://www.dzbank.de/content/dzbank_de/de/footermetanavigation/footerlinks/datenschutz.html"
+    - title: "Rechtliche Hinweise"
+      url: "https://www.dzbank.de/content/dzbank_de/de/footermetanavigation/footerlinks/Rechtliche_Hinweise.html"

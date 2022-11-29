@@ -1,0 +1,104 @@
+
+{% raw %}
+<%! from django.utils.translation import ugettext as _ %>
+
+<%inherit file="../main.html" />
+
+<%block name="pagetitle">${_("Overview")}</%block>
+
+
+
+<main id="main" aria-label="Content" tabindex="-1">
+    <section class="home">
+      <header>
+        <div class="outer-wrapper">
+          <div class="title">
+            <div class="heading-group">
+                <p style="font-style: normal !important; text-align: left !important; position: absolute; margin-top: 50px; font-size: 22px;">E-Learning Plattform</p>
+            </div>
+              <div class="course-search">
+                <form method="get" action="/courses">
+                  <label><span class="sr">Suche nach einem Kurs</span>
+                    <input class="search-input" name="search_query" type="text" placeholder="Suche nach einem Kurs">
+                  </label>
+                  <button class="search-button" type="submit">
+                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">Suche</span>
+                  </button>
+                </form>
+              </div>
+
+          </div>
+
+        </div>
+
+      </header>
+      
+
+
+
+<section class="courses-container">
+  <section class="highlighted-courses">
+
+      <section class="courses">
+        <ul class="courses-listing">
+          <li class="courses-listing-item">
+              
+
+
+
+<article class="course" id="investitionsfoerderung" role="region" aria-label="Firmenkunden">
+  <a href="/investitionsfoerderung">
+    <header class="course-image">
+      <div class="cover-image">
+        <img src="https://dz-bank.s3.eu-central-1.amazonaws.com/1628515449349Bild_Investitionsfoerderung_chancen.finder.jpeg" alt="Investitionsfoerderung  ">
+        <div class="learn-more" aria-hidden="true">MEHR ERFAHREN</div>
+      </div>
+    </header>
+    <div class="course-info" aria-hidden="true">
+      <h2 class="course-name">
+        <span class="course-organization">ChancenFinder</span>
+        <span class="course-code"> </span>
+        <span class="course-title">Investitionsförderung</span>
+      </h2>
+    
+  </a>
+</article>
+          </li>
+          <li class="courses-listing-item">
+              
+
+
+
+<article class="course" id="firmenkundengeschaeft" role="region" aria-label="Firmenkundengeschäft">
+  <a href="/firmenkundengeschaeft">
+    <header class="course-image">
+      <div class="cover-image">
+        <img src="https://dz-bank.s3.eu-central-1.amazonaws.com/1628515448862Bild_FK-Gesch%C3%A4ft_chancen.finder.jpg" alt="Firmenkundengeschäft">
+        <div class="learn-more" aria-hidden="true">MEHR ERFAHREN</div>
+      </div>
+    </header>
+    <div class="course-info" aria-hidden="true">
+      <h2 class="course-name">
+        <span class="course-organization">ChancenFinder</span>
+        <span class="course-code"> </span>
+        <span class="course-title">Firmenkundengeschäft</span>
+      </h2>
+      
+        
+  </a>
+</article>
+
+
+
+          </li>
+          
+        </ul>
+      </section>
+
+  </section>
+</section>
+
+
+    </section>
+</main>
+{% endraw %}

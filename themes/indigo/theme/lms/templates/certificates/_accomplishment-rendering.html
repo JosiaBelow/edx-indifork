@@ -1,0 +1,219 @@
+<%page expression_filter="h"/>
+<%! from django.utils.translation import ugettext as _ %>
+<%namespace name='static' file='../static_content.html'/>
+<%
+course_mode_class = course_mode if course_mode else ''
+%>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<main class="accomplishment accomplishment-main">
+
+    <div style="font-family:Roboto, 'Segoe UI', Tahoma, sans-serif" class="wrapper-accomplishment-rendering">
+        <div class="accomplishment-rendering">
+            <span class="deco-corner deco-corner-tl"></span>
+            <span class="deco-corner deco-corner-tr"></span>
+            <span class="deco-corner deco-corner-bl"></span>
+            <span class="deco-corner deco-corner-br"></span>
+
+            <div class="accomplishment-type">
+                <span class="accomplishment-type-symbol">
+                    <img class="src" src="/static/certificates/images/ico-${course_mode_class}.png" alt="Image for course mode of type ${course_mode_class}">
+                </span>
+                <img style="float:left; margin-left: 45px;padding-top: 60px" src="https://dz-bank.s3.eu-central-1.amazonaws.com/footer.png" alt="" width="190">
+                <p style="text-align: left;font-size: 45px;color: #a8a9ad;font-weight: 400;padding-top: 170px;margin-left: 40px;" class="accomplishment-type-label hd-3">Zertifikat</p>
+            </div>
+            <img style="float:left; margin-left: 45px;width: 1040px;" src="https://dz-bank.s3.eu-central-1.amazonaws.com/img38.jpg" alt="">
+            <div class="wrapper-statement-and-signatories">
+                <div style="border-bottom: 0rem;" class="accomplishment-statement">
+                    <p class="accomplishment-statement-lead">
+                        <strong class="accomplishment-recipient hd-1 emphasized" style="text-align:left;margin-left: 40px;color: #707172;font-family:Roboto, 'Segoe UI', Tahoma, sans-serif;padding-top:110px">${accomplishment_copy_name}</strong>
+                        <span class="accomplishment-summary copy copy-lead" style="text-align:left;margin-left: 40px;color: #707172;font-family:Roboto, 'Segoe UI', Tahoma, sans-serif">hat den nachstehenden Kurs mit folgenden Lerninhalten erfolgreich abgeschlossen.</span>
+
+                        <span style="text-align:left;margin-left: 40px" class="accomplishment-course hd-1 emphasized">
+                            <span class="accomplishment-course-org"></span>
+                            <span class="accomplishment-course-number"></span>
+                            <span id="course-name" class="accomplishment-course-name" style="color:#f08200;font-family:Roboto, 'Segoe UI', Tahoma, sans-serif;font-size: 30px;">${accomplishment_copy_course_name}</span>
+                        </span>
+                    </p>
+                    <div id='if-part' style='display: none;text-align:left;margin-left: 40px;color: #707172;font-family:Roboto, 'Segoe UI', Tahoma, sans-serif'>
+                        <ul>
+                            <li  style='font-family:Roboto, 'Segoe UI'>Antragsfristen und Vorhabensbeginn bei Förderkrediten</li>
+                            <li  style='font-family:Roboto, 'Segoe UI'>KMU Definition</li>
+                            <li  style='font-family:Roboto, 'Segoe UI'>Beihilferecht (Definition und Funktionsweise verschiedener Beihilfekomlionenten inkl. Corona Beihilfen)</li>
+                            <li  style='font-family:Roboto, 'Segoe UI'>Risikogerechtes Zinssystem</li>
+                            <li  style='font-family:Roboto, 'Segoe UI'>Öffentliche Risikoübernahme</li>
+                            <li  style='font-family:Roboto, 'Segoe UI'>Mittelstandsförderung der KfW</li>
+                            <li  style='font-family:Roboto, 'Segoe UI'>StartGeld</li>
+                        </ul>
+                    </div>
+                    <div id='elseif-part' style='display: none;text-align:left;margin-left: 40px;color: #707172;font-family:Roboto, 'Segoe UI', Tahoma, sans-serif'>
+                        <ul>
+                            <li style='font-family:Roboto, 'Segoe UI'>Antragsfristen und Vorhabensbeginn bei Förderkrediten</li>
+                            <li  style='font-family:Roboto, 'Segoe UI'>KMU Definition</li>
+                            <li  style='font-family:Roboto, 'Segoe UI'>Beihilferecht (Definition und Funktionsweise verschiedener Beihilfekomponenten inkl. Corona Beihilfen)</li>
+                            <li  style='font-family:Roboto, 'Segoe UI'>Risikogerechtes Zinssystem</li>
+                            <li  style='font-family:Roboto, 'Segoe UI'>Bestätigung zum Antrag und Bestätigung nach Durchführung</li>
+                            <li  style='font-family:Roboto, 'Segoe UI'>Aufstockung und Reduzierung von Förderkrediten</li>
+                            <li  style='font-family:Roboto, 'Segoe UI'>Wechsel des Effizienzhaus-Niveaus</li>
+                            <li  style='font-family:Roboto, 'Segoe UI'>Mittelverwendungskontrolle</li>
+                            <li  style='font-family:Roboto, 'Segoe UI'>Außerplanmäßige Rückzahlung</li>
+                            <li  style='font-family:Roboto, 'Segoe UI'>Prolongation</li>
+                            <li  style='font-family:Roboto, 'Segoe UI'>Teil-/Vollverzicht, Kürzung und Kündigung</li>
+                            <li  style='font-family:Roboto, 'Segoe UI'>Endkreditnehmer-/Bankenwechsel</li>
+                        </ul>
+                    </div>
+                    <div id='nkelseif-part' style='display: none;text-align:left;margin-left: 40px;color: #707172;font-family:Roboto, 'Segoe UI', Tahoma, sans-serif'>
+                        <ul>
+                            <li style='font-family:Roboto, 'Segoe UI'>Programmgrundzüge Produkt ERP-Gründerkredit Startgeld</li>
+                            <li  style='font-family:Roboto, 'Segoe UI'>Detaillierte Abwicklungsschritte</li>
+                            <li  style='font-family:Roboto, 'Segoe UI'>Eigenverwaltung</li>
+                            <li  style='font-family:Roboto, 'Segoe UI'>Rückzahlungsvereinbarung</li>
+                            <li  style='font-family:Roboto, 'Segoe UI'>Abschlussbericht</li>
+                        </ul>
+                    </div>
+                    <div id='gselseif-part' style='display: none;text-align:left;margin-left: 40px;color: #707172;font-family:Roboto, 'Segoe UI', Tahoma, sans-serif'>
+                        <ul>
+                            <li style='font-family:Roboto, 'Segoe UI'>Zinsbestätigung für KfW-Kredite aus der agree21-Modellrechnung</li>
+                            <li  style='font-family:Roboto, 'Segoe UI'>Anlage eines Fördermittelantrages mit zwei Förderprogrammen</li>
+                            <li  style='font-family:Roboto, 'Segoe UI'>Zinsbestätigung für KfW-Kredite aus der Genossenschaftlichen Beratung</li>
+                        </ul>
+                    </div>
+                    <div id='vrgelseif-part' style='display: none;text-align:left;margin-left: 40px;color: #707172;font-family:Roboto, 'Segoe UI', Tahoma, sans-serif'>
+                        <ul>
+                            <li style='font-family:Roboto, 'Segoe UI'>VR GeschäftsNavigator 1 Einleitung</li>
+                            <li  style='font-family:Roboto, 'Segoe UI'>VR GeschäftsNavigator 2 Modul Potentiale</li>
+                            <li  style='font-family:Roboto, 'Segoe UI'>VR GeschäftsNavigator 3 Modul Produkte</li>
+                            <li  style='font-family:Roboto, 'Segoe UI'>VR GeschäftsNavigator 4 Antrags-Modul</li>
+                        </ul>
+                    </div>
+                    <div id='zgelseif-part' style='display: none;text-align:left;margin-left: 40px;color: #707172;font-family:Roboto, 'Segoe UI', Tahoma, sans-serif'>
+                        <ul>
+                            <li style='font-family:Roboto, 'Segoe UI'>ZuschussGuide in der Praxis</li> 
+                            <li  style='font-family:Roboto, 'Segoe UI'>ZuschussGuide im Bankeinsatz</li>
+                        </ul>
+                    </div>
+                    <div id='else-part' style='display: none;text-align:left;margin-left: 40px;color: #707172;font-family:Roboto, 'Segoe UI', Tahoma, sans-serif'>
+                        <ul>
+                            <li  style='font-family:Roboto, 'Segoe UI'>Antragsfristen und Vorhabensbeginn bei Förderkrediten</li>
+                            <li  style='font-family:Roboto, 'Segoe UI'>Vorstellung verschiedener KfW Programme:</li>
+                            <ul style="margin: 5px;margin-left: 15px;">
+                                <li  style='font-family:Roboto, 'Segoe UI'>Wohneigentumsprogramm (124, 134)</li>
+                                <li  style='font-family:Roboto, 'Segoe UI'>Energieeffizient Bauen und Sanieren (151, 152, 153)</li>
+                                <li  style='font-family:Roboto, 'Segoe UI'>Baubegleitung (431)</li>
+                                <li  style='font-family:Roboto, 'Segoe UI'>Ergänzungskredit (167)</li>
+                                <li  style='font-family:Roboto, 'Segoe UI'>Altersgerecht Umbauen (159)</li>
+                            </ul>
+                            <li  style='font-family:Roboto, 'Segoe UI'>Mittelverwendungskontrolle</li>
+                            <li  style='font-family:Roboto, 'Segoe UI'>Fördermöglichkeiten Erneuerbarer Energien</li>
+                        </ul>
+                    </div>      
+
+                    <script>
+                        var node;
+                        var name=document.getElementById('course-name').textContent;
+                        if (name == 'Einsteigerschulung Firmenkunden') {
+                            node = document.getElementById('if-part');
+                        }
+                        else if (name == 'Marktfolgeschulung') {
+                            node = document.getElementById('elseif-part');
+                        } 
+                        else if (name == 'Notleidende Kredite') {
+                            node = document.getElementById('nkelseif-part');
+                        } 
+                        else if (name == 'Geno-Star-Schulung') {
+                            node = document.getElementById('gselseif-part');
+                        } 
+                        else if (name == 'VR GeschäftsNavigator') {
+                            node = document.getElementById('vrgelseif-part');
+                        } 
+                        else if (name == 'ZuschussGuide') {
+                            node = document.getElementById('zgelseif-part');
+                        } 
+                        else {
+                            node = document.getElementById('else-part');
+                        }
+                        node.style.display = 'block';
+                    </script>
+                    <p class="accomplishment-statement-detail copy copy-lead"></p>
+                    <p style="font-family:Roboto, 'Segoe UI', Tahoma, sans-serif;margin-left: 40px;text-align: left;color: #707172;font-size: 20px;padding-top:110px">${certificate_date_issued}</p>
+                </div>
+
+                % if mode != 'base':
+                <div style="display:none" class="accomplishment-signatories">
+                    <h3 class="accomplishment-signatories-title sr-only">${_("Noted by")}</h3>
+
+                    <div class="wrapper-signatories">
+                        <div class="list-signatories">
+                            % if certificate_data:
+                                % for signatory in certificate_data.get('signatories', []):
+                                    % if signatory.get('signature_image_path'):
+                                        <div class="signatory">
+                                            <img class="signatory-signature" src="${static.url(signatory['signature_image_path'])}" alt="${signatory['name']}">
+
+                                            <h4 class="signatory-name hd-5">${signatory['name']}</h4>
+                                            <p class="signatory-credentials copy copy-micro">
+                                                <span class="role">${signatory['title']}</span>
+                                                <span class="organization">${signatory['organization']}</span>
+                                            </p>
+                                        </div>
+                                    % endif
+                                % endfor
+                            % endif
+                        </div>
+                    </div>
+                </div>
+                % endif
+            </div>
+
+            <div class="accomplishment-orgs">
+                <h3 class="accomplishment-orgs-title sr-only">${_("Supported by the following organizations")}</h3>
+
+                <ul class="wrapper-orgs list-orgs">
+                    <li class="wrapper-organization">
+                        <div class="organization organization-edX">
+                            <img class="organization-logo" src="${logo_src}" alt="${platform_name}">
+                        </div>
+                    </li>
+
+                    % if organization_logo:
+                    <li class="wrapper-organization">
+                        <div class="organization">
+                            <img class="organization-logo" src="${organization_logo.url}" alt="${platform_name}">
+                        </div>
+                    </li>
+                    % endif
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper-accomplishment-metadata">
+        <div class="accomplishment-metadata">
+            <h2 class="accomplishment-metadata-title hd-6">${accomplishment_copy_more_about}</h2>
+
+            <div class="wrapper-metadata">
+                <dl class="metadata accomplishment-recipient">
+                    <dt class="label sr-only">${_("Awarded to:")}</dt>
+                    <dd class="value copy copy-meta">
+                        <span class="recipient-img">
+                            <img class="src" src="/static/certificates/images/demo-user-profile.png" alt="Recipient Image">
+                        </span>
+                        <div class="recipient-details">
+                            <h3 class="recipient-name">${accomplishment_copy_name}</h3>
+                            <p class="recipient-username">${accomplishment_copy_username} @ ${platform_name}</p>
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="metadata accomplishment-id">
+                    <dt class="label copy copy-meta">${certificate_id_number_title}:</dt>
+                    <dd class="value copy copy-base">${certificate_id_number}</dd>
+                </dl>
+                <dl class="metadata accomplishment-date">
+                    <dt class="label copy copy-meta">${certificate_date_issued_title}</dt>
+                    <dd class="value copy copy-base">${certificate_date_issued}</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+</main>
