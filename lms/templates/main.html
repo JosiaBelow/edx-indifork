@@ -100,7 +100,12 @@ from common.djangoapps.pipeline_mako import render_require_js_path_overrides
   % else:
     <%static:css group='${self.attr.main_css}'/>
   % endif
-
+          <script>
+              document.styleSheets[1].deleteRule(0);
+              document.styleSheets[1].deleteRule(0);
+              document.styleSheets[1].deleteRule(0);
+              document.styleSheets[1].deleteRule(0);
+          </script>
   % if disable_courseware_js:
     <%static:js group='base_vendor'/>
     <%static:js group='base_application'/>
