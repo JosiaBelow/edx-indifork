@@ -70,9 +70,11 @@ from openedx.core.release import RELEASE_LINE
     <%static:css group='style-vendor-tinymce-skin'/>
 
     % if uses_bootstrap:
-      <link rel="stylesheet" href="${static.url(self.attr.main_css)}" type="text/css" media="all" />
+      <link rel="stylesheet" href="https://dz-bank.s3.eu-central-1.amazonaws.com/cms-main.css" type="text/css" media="all" />
+      <!--<link rel="stylesheet" href="${static.url(self.attr.main_css)}" type="text/css" media="all" />-->
     % else:
-      <%static:css group='${self.attr.main_css}'/>
+      <link rel="stylesheet" href="https://dz-bank.s3.eu-central-1.amazonaws.com/cms-main.css" type="text/css" media="all" />
+      <!--<%static:css group='${self.attr.main_css}'/>-->
     % endif
 
     <%include file="widgets/segment-io.html" />
