@@ -47,11 +47,6 @@ from common.djangoapps.pipeline_mako import render_require_js_path_overrides
        ${static.get_page_title_breadcrumbs(self.pagetitle())}
       </title>
   </%block>
-<script type="text/javascript">
-  rg4js('apiKey', 'Un4IytS9EDH5TfWHZV2GeA');
-  rg4js('enablePulse', true);
-  rg4js('enableCrashReporting', true);
-</script>
 <link rel="stylesheet" type="text/css" href="https://files.edx.org/fonts/edx-fonts/open-sans/open-sans.css">
   % if not allow_iframing:
       <script type="text/javascript">
