@@ -212,6 +212,7 @@ urlpatterns = [
     path('404', handler404),
     path('429', handler429),
     path('500', handler500),
+    path('robots.txt', TemplateView.as_view(template_name="robots.txt", content_type="text/plain")),
 ]
 
 if settings.FEATURES.get('ENABLE_MOBILE_REST_API'):
