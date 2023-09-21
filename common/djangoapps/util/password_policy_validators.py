@@ -447,7 +447,12 @@ class SymbolValidator:
         self.min_symbol = min_symbol
 
     def validate(self, password, user=None):  # lint-amnesty, pylint: disable=unused-argument
-        if _validate_condition(password, lambda c: 'S' in unicodedata.category(c), self.min_symbol):
+        def is_valid_symbol(c):
+            # Update this function to include the desired symbols
+            valid_symbols = '@#%&*()-_[]{}|\\/:;"\',.<>?~'
+            return 'S' in unicodedata.category(c) or c in valid_symbols
+        
+        if _validate_condition(password, is_valid_symbol, self.min_symbol):
             return
         raise ValidationError(
             ngettext(
