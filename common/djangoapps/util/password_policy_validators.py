@@ -449,7 +449,7 @@ class SymbolValidator:
     def validate(self, password, user=None):  # lint-amnesty, pylint: disable=unused-argument
         def is_valid_symbol(c):
             # Update this function to include the desired symbols
-            valid_symbols = '@#%&*()-_[]{}|\\/:;"\',.<>?~'
+            valid_symbols = '@#%&*()-_[]{}|\\/:;"\',.<>?~!$^=+*?@_#&%|()[]'
             return 'S' in unicodedata.category(c) or c in valid_symbols
         
         if _validate_condition(password, is_valid_symbol, self.min_symbol):
