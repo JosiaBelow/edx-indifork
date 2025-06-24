@@ -35,22 +35,22 @@ export class CourseOutline {  // eslint-disable-line import/prefer-default-expor
     );
 
     function expandSection(sectionToggleButton) {
-      const $toggleButtonChevron = $(sectionToggleButton).children('.fa-chevron-right');
+      const $toggleButtonChevron = $(sectionToggleButton).children('.fa-plus');
       const $contentPanel = $(document.getElementById(sectionToggleButton.getAttribute('aria-controls')));
 
       $contentPanel.slideDown();
       $contentPanel.removeClass('is-hidden');
-      $toggleButtonChevron.addClass('fa-rotate-90');
+      $toggleButtonChevron.addClass('fa-minus');
       sectionToggleButton.setAttribute('aria-expanded', 'true');
     }
 
     function collapseSection(sectionToggleButton) {
-      const $toggleButtonChevron = $(sectionToggleButton).children('.fa-chevron-right');
+      const $toggleButtonChevron = $(sectionToggleButton).children('.fa-plus');
       const $contentPanel = $(document.getElementById(sectionToggleButton.getAttribute('aria-controls')));
 
       $contentPanel.slideUp();
       $contentPanel.addClass('is-hidden');
-      $toggleButtonChevron.removeClass('fa-rotate-90');
+      $toggleButtonChevron.removeClass('fa-minus');
       sectionToggleButton.setAttribute('aria-expanded', 'false');
     }
 
